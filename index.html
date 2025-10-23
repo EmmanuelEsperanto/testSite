@@ -243,12 +243,22 @@
 </div>
 
 <script>
+
 const amountInput = document.getElementById('amount');
 const amountSlider = document.getElementById('amountSlider');
 const downInput = document.getElementById('downPayment');
 const downSlider = document.getElementById('downSlider');
 const monthsInput = document.getElementById('months');
 const monthsSlider = document.getElementById('monthsSlider');
+
+
+
+monthsSlider.value = 6;
+months.value = 6;
+amountInput.value = 100000;
+amountSlider.value = 100000;
+downInput.value = 29500;
+downSlider.value = 29500;
 
 
 monthsInput.addEventListener('input', () => {
@@ -343,13 +353,14 @@ function calculate() {
     return;
   }
 
-  const base = amount - down;
-  interestRate = 0;
+	let interestRate = 0;
   if (down > 0) {
   interestRate = downInterest.get(months) / 100;
   } else {
   interestRate = noDownInterest.get(months) / 100;
   }
+
+  const base = amount - down;
   const markup = interestRate;
   // Расчёт общей суммы с наценкой
   const totalCost = amount * (1 + markup);
