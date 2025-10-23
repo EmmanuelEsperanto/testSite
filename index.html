@@ -346,17 +346,27 @@ function calculate() {
   const base = amount - down;
   interestRate = 0;
   if (down > 0) {
-  interestRate = downInterest.get(months);
+  interestRate = downInterest.get(months) / 100;
   } else {
-  interestRate = noDownInterest.get(months);
+  interestRate = noDownInterest.get(months) / 100;
   }
-  const total = base * (1 + interestRate / 100 * months);
-  const monthly = total / months;
-  const interestCount = base * interestRate / 100;
+  const markup = interestRate;
+  // Расчёт общей суммы с наценкой
+  const totalCost = amount * (1 + markup);
 
-  document.getElementById('total').innerText = total.toFixed(2);
-  document.getElementById('monthly').innerText = monthly.toFixed(2);
-  document.getElementById('interest').innerText = interestRate;
+  // Расчёт остатка к оплате после вычета первоначального взноса
+  const remainingAmount = totalCost - down;
+
+  // Расчёт ежемесячного платежа
+  const monthlyPayment = remainingAmount / months;
+
+  const interestCount = (amount * markup) / months;
+  
+  const interestPerMonth = (interestCount / amount) * 100;
+
+  document.getElementById('total').innerText = totalCost.toFixed(2);
+  document.getElementById('monthly').innerText = monthlyPayment.toFixed(2);
+  document.getElementById('interest').innerText = interestPerMonth;
   document.getElementById('interestCount').innerText = interestCount.toFixed(2);
 }
 
