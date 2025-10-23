@@ -270,7 +270,7 @@ amountInput.addEventListener('input', () => {
   if (val > 1000000) val = 1000000;
   amountInput.value = val;
   amountSlider.value = val;
-
+  
   // ограничиваем взнос при изменении суммы
   if (parseInt(downInput.value) > val) {
     downInput.value = val;
@@ -364,10 +364,10 @@ function calculate() {
   
   const interestPerMonth = (interestCount / amount) * 100;
 
-  document.getElementById('total').innerText = totalCost.toFixed(2);
-  document.getElementById('monthly').innerText = monthlyPayment.toFixed(2);
-  document.getElementById('interest').innerText = interestPerMonth;
-  document.getElementById('interestCount').innerText = interestCount.toFixed(2);
+  document.getElementById('total').innerText = totalCost;
+  document.getElementById('monthly').innerText = monthlyPayment;
+  document.getElementById('interest').innerText = interestPerMonth.toFixed(2);
+  document.getElementById('interestCount').innerText = interestCount;
 }
 
 function openModal() {
