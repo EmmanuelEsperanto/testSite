@@ -192,7 +192,6 @@
   <div class="results">
     <p>Всего: <br><div class="resultValues"><b id="total">—</b> ₽</p></div>
     <p>Ежемесячный платёж: <br><div class="resultValues"><b id="monthly">—</b> ₽</p></div>
-    <p>Наценка в месяц: <div class="resultValues"><b id="interest">—</b> %<br><b id="interestCount">—</b> ₽</p></div>
   </div>
 
   <div class="info-block">
@@ -317,6 +316,55 @@ downSlider.addEventListener('input', () => {
   downSlider.value = val;
 });
 
+
+function calculateMarkupByRatio(basePrice, initialPayment, baseMarkupPercent = 0.18, baseDownPaymentPercent = 0.25, months = 6) {
+    // 1. Базовая сумма с наценкой
+    const baseTotal = basePrice * (1 + baseMarkupPercent);
+    
+    // 2. Базовый остаток после 25% взноса
+    const baseRemaining = baseTotal * (1 - baseDownPaymentPercent);
+    
+    // 3. Остаток после взноса клиента (от базовой суммы с наценкой)
+    const remainingAfterClient = baseTotal - initialPayment;
+    
+    // 4. Коэффициент отношения остатков
+    const ratio = remainingAfterClient / baseRemaining;
+    
+    // 5. Новая наценка (базовая наценка × коэффициент)
+    const adjustedMarkupPercent = baseMarkupPercent * ratio;
+    
+    // 6. Итоговая сумма с новой наценкой
+    const newTotal = basePrice * (1 + adjustedMarkupPercent);
+    
+    // 7. Остаток к оплате после взноса клиента
+    const newRemaining = newTotal - initialPayment;
+    
+    
+    document.getElementById('total').innerText = newTotal.toFixed();
+    document.getElementById('monthly').innerText = (Math.round(newRemaining) / months).toFixed();
+    
+    
+    return {
+        basePrice,
+        initialPayment,
+        baseTotal: baseTotal.toFixed(2),
+        baseRemaining: baseRemaining.toFixed(2),
+        remainingAfterClient: remainingAfterClient.toFixed(2),
+        ratio: ratio.toFixed(4),
+        baseMarkupPercent: (baseMarkupPercent * 100).toFixed(1) + '%',
+        adjustedMarkupPercent: (adjustedMarkupPercent * 100).toFixed(2) + '%',
+        adjustedMarkupDecimal: adjustedMarkupPercent.toFixed(4),
+        newTotal: newTotal.toFixed(2),
+        newRemaining: newRemaining.toFixed(2),
+        
+        // Для проверки: какая сумма была бы с базовой наценкой после вычета взноса
+        baseScenarioAfterPayment: (baseTotal - initialPayment).toFixed(2)
+    };
+}
+
+
+
+
 function calculate() {
 
   let downInterest = new Map([
@@ -349,7 +397,7 @@ function calculate() {
   const down = parseFloat(downInput.value) || 0;
   const months = parseInt(document.getElementById('months').value) || 0;
 
-  if (months < 3 || months > 12 || amount <= 0) {
+  if (months < 3 || months > 12 || amount <= 10000) {
     alert('Введите корректные данные! (Срок от 3 до 12 мес, сумма > 0)');
     return;
   }
@@ -357,29 +405,29 @@ function calculate() {
 	let interestRate = 0;
   if (down > 0) {
   interestRate = downInterest.get(months) / 100;
+  calculateMarkupByRatio(amount, down, interestRate, 0.25, months)
   } else {
   interestRate = noDownInterest.get(months) / 100;
-  }
-
-  const base = amount - down;
+    const base = amount - down;
   const markup = interestRate;
-  // Расчёт общей суммы с наценкой
-  const totalCost = amount * (1 + markup);
+  // // Расчёт общей суммы с наценкой
+const totalCost = amount * (1 + markup);
 
-  // Расчёт остатка к оплате после вычета первоначального взноса
-  const remainingAmount = totalCost - down;
+  // // Расчёт остатка к оплате после вычета первоначального взноса
+ const remainingAmount = totalCost - down;
 
-  // Расчёт ежемесячного платежа
-  const monthlyPayment = remainingAmount / months;
+  // // Расчёт ежемесячного платежа
+ const monthlyPayment = remainingAmount / months;
 
   const interestCount = (amount * markup) / months;
   
-  const interestPerMonth = (interestCount / amount) * 100;
+ const interestPerMonth = (interestCount / amount) * 100;
 
-  document.getElementById('total').innerText = totalCost;
-  document.getElementById('monthly').innerText = monthlyPayment;
-  document.getElementById('interest').innerText = interestPerMonth.toFixed(2);
-  document.getElementById('interestCount').innerText = interestCount;
+  
+  document.getElementById('total').innerText = totalCost.toFixed();
+  document.getElementById('monthly').innerText = monthlyPayment.toFixed();
+  }
+
 }
 
 function openModal() {
