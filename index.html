@@ -178,15 +178,12 @@
 
   <label>Нужная сумма (₽):</label>
   <input type="number" id="amount" min="500" max="1000000" step="500" placeholder="Введите сумму" inputmode="numeric">
-  <input type="range" id="amountSlider" min="500" max="1000000" step="500">
 
   <label>Первоначальный взнос (₽):</label>
   <input type="number" id="downPayment" min="0" max="1000000" step="500" placeholder="Введите взнос" inputmode="numeric">
-  <input type="range" id="downSlider" min="0" max="1000000" step="500">
 
   <label>Срок рассрочки (мес.):</label>
   <input type="number" id="months" min="3" max="12" placeholder="Введите количество месяцев" inputmode="numeric">
-  <input type="range" id="monthsSlider" min="3" max="12" step="1">
   <button class="btn" onclick="calculate()">Рассчитать</button>
 
   <div class="results">
@@ -244,20 +241,15 @@
 <script>
 
 const amountInput = document.getElementById('amount');
-const amountSlider = document.getElementById('amountSlider');
 const downInput = document.getElementById('downPayment');
-const downSlider = document.getElementById('downSlider');
 const monthsInput = document.getElementById('months');
-const monthsSlider = document.getElementById('monthsSlider');
 
 
 
-monthsSlider.value = 6;
 months.value = 6;
 amountInput.value = 100000;
-amountSlider.value = 100000;
 downInput.value = 29500;
-downSlider.value = 29500;
+
 
 calculate();
 
@@ -265,39 +257,23 @@ monthsInput.addEventListener('input', () => {
   let val = parseInt(monthsInput.value) || 0;
   if (val < 0) val = 3;
   if (val > 12) val = 12;
-  monthsSlider.value = val;
 });
 
-monthsSlider.addEventListener('input', () => {
-  let val = parseInt(monthsSlider.value);
-  if (val > 12) val = 12;
-  months.value = val;
-});
+
 
 amountInput.addEventListener('input', () => {
   let val = parseInt(amountInput.value) || 0;
   if (val < 0) val = 0;
   if (val > 1000000) val = 1000000;
   amountInput.value = val;
-  amountSlider.value = val;
   
   // ограничиваем взнос при изменении суммы
   if (parseInt(downInput.value) > val) {
     downInput.value = val;
-    downSlider.value = val;
   }
 });
 
-amountSlider.addEventListener('input', () => {
-  const val = parseInt(amountSlider.value);
-  amountInput.value = val;
 
-  // ограничиваем взнос при изменении суммы
-  if (parseInt(downInput.value) > val) {
-    downInput.value = val;
-    downSlider.value = val;
-  }
-});
 
 downInput.addEventListener('input', () => {
   let val = parseInt(downInput.value) || 0;
@@ -305,16 +281,9 @@ downInput.addEventListener('input', () => {
   if (val < 0) val = 0;
   if (val > max) val = max;
   downInput.value = val;
-  downSlider.value = val;
 });
 
-downSlider.addEventListener('input', () => {
-  const max = parseInt(amountInput.value) || 0;
-  let val = parseInt(downSlider.value);
-  if (val > max) val = max;
-  downInput.value = val;
-  downSlider.value = val;
-});
+
 
 
 function calculateMarkupByRatio(basePrice, initialPayment, baseMarkupPercent = 0.18, baseDownPaymentPercent = 0.25, months = 6) {
@@ -339,10 +308,8 @@ function calculateMarkupByRatio(basePrice, initialPayment, baseMarkupPercent = 0
     // 7. Остаток к оплате после взноса клиента
     const newRemaining = newTotal - initialPayment;
     
-    
     document.getElementById('total').innerText = newTotal.toFixed();
     document.getElementById('monthly').innerText = (Math.round(newRemaining) / months).toFixed();
-    
     
     return {
         basePrice,
