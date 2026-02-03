@@ -422,7 +422,8 @@ function calculateMarkupByRatio(basePrice, initialPayment, baseMarkupPercent = 0
     let newTotal = 200 + basePrice * (1 + adjustedMarkupPercent);
     const newRemaining = newTotal - initialPayment;
     let RoundedMounthly = customRound((Math.round(newRemaining) / months))
-    document.getElementById('total').innerText = newTotal.toLocaleString('ru-RU').split(',')[0];
+    let recalculatedTotal = RoundedMounthly + newRemaining * (1 + adjustedMarkupPercent);
+    document.getElementById('total').innerText = recalculatedTotal.toLocaleString('ru-RU').split(',')[0];
     document.getElementById('monthly').innerText = RoundedMounthly.toLocaleString('ru-RU').split(',')[0];
     
     return {
@@ -492,7 +493,8 @@ function calculate() {
     const interestCount = (amount * markup) / months;
     const interestPerMonth = (interestCount / amount) * 100;
     let RoundedMounthly = customRound((Math.round(remainingAmount) / months))
-    document.getElementById('total').innerText = totalCost.toLocaleString('ru-RU').split(',')[0];
+
+    document.getElementById('total').innerText = RoundedMounthly*months.toLocaleString('ru-RU').split(',')[0];
     document.getElementById('monthly').innerText = RoundedMounthly.toLocaleString('ru-RU').split(',')[0];
   }
 }
