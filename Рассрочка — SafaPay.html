@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<!-- saved from url=(0019)https://safapay.ru/ -->
+<html lang="ru"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Рассрочка — SafaPay</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      color: #333;
+      background: #ffffff;
+    }
+
+    header, footer {
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 1px;
+    }
+
+    .phone-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #ffffff;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .phone-header:hover {
+      color: #10b981;
+      text-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+    }
+
+    main {
+      max-width: 700px;
+      margin: 40px auto;
+      padding: 40px;
+      border-radius: 24px;
+      background: linear-gradient(145deg, #2a2a2a 0%, #3d3d3d 50%, #2a2a2a 100%);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      color: #e0e0e0;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 32px;
+      margin-bottom: 30px;
+      background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    label {
+      display: block;
+      margin-top: 20px;
+      font-weight: 600;
+      color: #a7f3d0;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    label .required {
+      color: #f87171;
+      font-size: 14px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 15px 20px;
+      margin-top: 8px;
+      border-radius: 12px;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      font-size: 16px;
+      background: rgba(0, 0, 0, 0.4);
+      color: #e0e0e0;
+      transition: all 0.3s ease;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: #10b981;
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+    }
+
+    select option {
+      background: #2a2a2a;
+      color: #e0e0e0;
+    }
+
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+
+    .btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      padding: 15px 35px;
+      border: none;
+      border-radius: 12px;
+      margin-top: 25px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+      background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .results {
+      margin-top: 30px;
+      padding: 25px;
+      border-radius: 16px;
+      background: linear-gradient(145deg, #1f1f1f 0%, #2d2d2d 100%);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+    }
+
+    .results p {
+      font-size: 14px;
+      color: #a7f3d0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 5px;
+    }
+
+    .resultValues {
+      font-size: 42px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #10b981 0%, #6ee7b7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 20px;
+    }
+
+    .info-block {
+      margin: 40px 0 0 0;
+      font-size: 16px;
+      line-height: 1.8;
+      text-align: center;
+      color: #d1d5db;
+    }
+
+    .contacts {
+      padding: 40px 20px;
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 40px;
+      border-radius: 24px;
+      background: linear-gradient(145deg, #2a2a2a 0%, #3d3d3d 50%, #2a2a2a 100%);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      color: #e0e0e0;
+    }
+
+    .contacts h3 {
+      font-size: 24px;
+      margin-bottom: 25px;
+      background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .contacts p {
+      margin: 15px 0;
+      font-size: 16px;
+    }
+
+    .contacts a {
+      color: #6ee7b7;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .contacts a:hover {
+      color: #a7f3d0;
+      text-shadow: 0 0 15px rgba(16, 185, 129, 0.5);
+    }
+
+    .whatsapp-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+      padding: 12px 25px;
+      border-radius: 30px;
+      color: white !important;
+      font-weight: 600;
+      margin-top: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .whatsapp-link:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
+    }
+
+    footer {
+      margin-top: auto;
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.5), transparent);
+      margin: 30px 0;
+    }
+
+    .client-section h3 {
+      font-size: 18px;
+      margin-bottom: 5px;
+      color: #6ee7b7;
+    }
+
+    @media (max-width: 600px) {
+      header, footer {
+        padding: 15px 20px;
+      }
+
+      main {
+        margin: 20px 15px;
+        padding: 25px 20px;
+      }
+
+      h2 {
+        font-size: 24px;
+      }
+
+      .resultValues {
+        font-size: 32px;
+      }
+
+      .title {
+        font-size: 20px;
+      }
+
+      .contacts {
+        margin: 0 15px 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="title">SafaPay</div>
+  <a href="tel:+79280010595" class="phone-header">📞 +7 928 001 05 95</a>
+</header>
+
+<main>
+  <h2>Калькулятор рассрочки</h2>
+
+  <label>Категория:</label>
+  <select id="category">
+    <option>Товары</option>
+    <option>Недвижимость</option>
+    <option>Бизнес</option>
+    <option>Авто</option>
+    <option>Другое</option>
+  </select>
+
+  <label>Нужная сумма (₽):</label>
+  <input type="text" id="amount" min="10000" max="1000000" step="1000" placeholder="Введите сумму" inputmode="numeric">
+
+  <label>Первоначальный взнос (₽):</label>
+  <input type="text" id="downPayment" min="0" max="1000000" step="1000" placeholder="Введите взнос" inputmode="numeric">
+
+  <label>Срок рассрочки (мес.):</label>
+  <input type="number" id="months" min="3" max="12" placeholder="Введите количество месяцев" inputmode="numeric">
+  
+  <button class="btn" onclick="calculate()">Рассчитать</button>
+
+  <div class="results">
+    <p>Всего к оплате:</p>
+    <div class="resultValues"><b id="total">0</b> ₽</div>
+    <p>Ежемесячный платёж:</p>
+    <div class="resultValues"><b id="monthly">0</b> ₽</div>
+  </div>
+
+  <div class="info-block">
+    <p>Мы предоставляем удобные и прозрачные условия рассрочки для физических и юридических лиц.  
+    Выберите категорию, рассчитайте параметры и подайте заявку прямо сейчас!</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="client-section">
+    <h3>👤 Данные клиента и Товар</h3>
+    
+    <label>Наименование товара: <span class="required">*</span></label>
+    <input type="text" id="productName" placeholder="Введите название товара">
+
+    <label>Имя и фамилия клиента: <span class="required">*</span></label>
+    <input type="text" id="name" placeholder="Введите ваше имя и фамилию">
+
+    <label>Номер телефона: <span class="required">*</span></label>
+    <input type="tel" id="phone" placeholder="+7 (___) ___-__-__">
+  </div>
+
+  <div style="text-align: center;">
+    <button class="btn" onclick="submitToWhatsApp()">Оформить рассрочку</button>
+  </div>
+</main>
+
+<div class="contacts">
+  <h3>Контакты</h3>
+  <p>📧 <a href="mailto:safafintech@icloud.com">safafintech@icloud.com</a></p>
+  <p>📞 <a href="tel:+79280010595">+7 928 001 05 95</a></p>
+  <p>
+    <a href="https://wa.me/79280010595?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BE%D1%84%D0%BE%D1%80%D0%BC%D0%B8%D1%82%D1%8C%20%D1%80%D0%B0%D1%81%D1%81%D1%80%D0%BE%D1%87%D0%BA%D1%83" target="_blank" class="whatsapp-link">
+      💬 Написать в WhatsApp
+    </a>
+  </p>
+</div>
+
+<footer>
+  <div class="title">SafaPay</div>
+  <a href="tel:+79280010595" class="phone-header">📞 +7 928 001 05 95</a>
+</footer>
+
+<script>
+
+function customRound(number) {
+    const remainder = number % 100;
+    
+    if (remainder === 0) return number;
+    if (remainder <= 15) return Math.floor(number / 100) * 100;
+    if (remainder >= 65) return Math.ceil(number / 100) * 100;
+    
+    return Math.floor(number / 100) * 100 + 50;
+}
+
+const amountInput = document.getElementById('amount');
+const downInput = document.getElementById('downPayment');
+const monthsInput = document.getElementById('months');
+
+//monthsInput.value = 3;
+//amountInput.value = 0;
+//downInput.value = 0;
+
+//calculate();
+
+monthsInput.addEventListener('input', () => {
+  let val = parseInt(monthsInput.value) || 0;
+  if (val < 0) val = 3;
+  if (val > 12) val = 12;
+});
+
+amountInput.addEventListener('input', () => {
+  let val = +amountInput.value.replace(/\s/g, "") || 0;
+
+  if (val < 0) {val = 0;}
+  if (val > 1000000) {val = 1000000;}
+
+  let NumText = new Intl.NumberFormat('ru-RU').format(val);
+  amountInput.value = NumText;
+  //console.log(NumText)
+  if (parseInt(downInput.value) > val) {
+    downInput.value = val;
+  }
+});
+
+downInput.addEventListener('input', () => {
+  let val = +downInput.value.replace(/\s/g, "") || 0;
+  let max = +amountInput.value.replace(/\s/g, "") || 0;
+  if (val < 0) val = 0;
+  if (val > max) val = max;
+    let NumText = new Intl.NumberFormat('ru-RU').format(val);
+  downInput.value = NumText;
+});
+
+function calculateMarkupByRatio(basePrice, initialPayment, baseMarkupPercent = 0.18, baseDownPaymentPercent = 0.25, months = 6) {
+    const baseTotal = basePrice * (1 + baseMarkupPercent);
+    const baseRemaining = baseTotal * (1 - baseDownPaymentPercent);
+    const remainingAfterClient = baseTotal - initialPayment;
+    const ratio = remainingAfterClient / baseRemaining;
+    const adjustedMarkupPercent = baseMarkupPercent * ratio;
+    let newTotal = 200 + basePrice * (1 + adjustedMarkupPercent);
+    const newRemaining = newTotal - initialPayment;
+    let RoundedMounthly = customRound((Math.round(newRemaining) / months))
+    document.getElementById('total').innerText = newTotal.toLocaleString('ru-RU').split(',')[0];
+    document.getElementById('monthly').innerText = RoundedMounthly.toLocaleString('ru-RU').split(',')[0];
+    
+    return {
+        basePrice,
+        initialPayment,
+        baseTotal: baseTotal.toFixed(2),
+        baseRemaining: baseRemaining.toFixed(2),
+        remainingAfterClient: remainingAfterClient.toFixed(2),
+        ratio: ratio.toFixed(4),
+        baseMarkupPercent: (baseMarkupPercent * 100).toFixed(1) + '%',
+        adjustedMarkupPercent: (adjustedMarkupPercent * 100).toFixed(2) + '%',
+        adjustedMarkupDecimal: adjustedMarkupPercent.toFixed(4),
+        newTotal: newTotal.toFixed(2),
+        newRemaining: newRemaining.toFixed(2),
+        baseScenarioAfterPayment: (baseTotal - initialPayment).toFixed(2)
+    };
+}
+
+function calculate() {
+  let downInterest = new Map([
+    [3, 9],
+    [4, 12],
+    [5, 15],
+    [6, 18],
+    [7, 20.5],
+    [8, 23],
+    [9, 25.5],
+    [10, 28],
+    [11, 30.5],
+    [12, 33]
+  ]);
+
+  let noDownInterest = new Map([
+    [3, 12],
+    [4, 16],
+    [5, 20],
+    [6, 24],
+    [7, 27],
+    [8, 30],
+    [9, 33],
+    [10, 36],
+    [11, 39],
+    [12, 42]
+  ]);
+
+
+  const amount = +amountInput.value.replace(/\s/g, "") || 0;
+  const down = +downInput.value.replace(/\s/g, "") || 0;
+  const months = parseInt(document.getElementById('months').value) || 0;
+
+  if (months < 3 || months > 12 || amount < 10000) {
+    alert('Введите корректные данные! (Срок от 3 до 12 мес, сумма от 1 000 ₽)');
+    return;
+  }
+
+  let interestRate = 0;
+  if (down > 0) {
+    interestRate = downInterest.get(months) / 100;
+    calculateMarkupByRatio(amount, down, interestRate, 0.25, months);
+  } else {
+    interestRate = noDownInterest.get(months) / 100;
+    const base = amount - down;
+    const markup = interestRate;
+    let totalCost = 200 + amount * (1 + markup);
+    const remainingAmount = totalCost - down;
+    const monthlyPayment = remainingAmount / months;
+    const interestCount = (amount * markup) / months;
+    const interestPerMonth = (interestCount / amount) * 100;
+    let RoundedMounthly = customRound((Math.round(remainingAmount) / months))
+    document.getElementById('total').innerText = totalCost.toLocaleString('ru-RU').split(',')[0];
+    document.getElementById('monthly').innerText = RoundedMounthly.toLocaleString('ru-RU').split(',')[0];
+  }
+}
+
+function submitToWhatsApp() {
+  const productName = document.getElementById('productName').value.trim();
+  const name = document.getElementById('name').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+
+  if (!productName) {
+    alert('Пожалуйста, укажите наименование товара!');
+    return;
+  }
+
+  if (!name) {
+    alert('Пожалуйста, укажите ваше имя!');
+    return;
+  }
+
+  if (!phone) {
+    alert('Пожалуйста, укажите номер телефона!');
+    return;
+  }
+
+  const category = document.getElementById('category').value;
+  const amount = amountInput.value;
+  const downPayment = downInput.value;
+  const months = monthsInput.value;
+  const total = document.getElementById('total').innerText;
+  const monthly = document.getElementById('monthly').innerText;
+
+  const text = `🔔 *ЗАЯВКА НА РАССРОЧКУ — SafaPay*
+
+👤 *Клиент:* ${name}
+📱 *Телефон:* ${phone}
+
+📋 *УСЛОВИЯ РАССРОЧКИ:*
+━━━━━━━━━━━━━━━
+🛒 Товар: ${productName}
+📦 Категория: ${category}
+💰 Сумма товара: ${amount} ₽
+💵 Первоначальный взнос: ${downPayment} ₽
+📅 Срок: ${months} мес.
+
+💳 *ИТОГО К ОПЛАТЕ:* ${total} ₽
+📆 *Ежемесячный платёж:* ${monthly} ₽
+━━━━━━━━━━━━━━━
+
+✅ Жду подтверждения!`;
+
+  const encodedText = encodeURIComponent(text);
+  
+  window.open(`https://wa.me/?text=${encodedText}`, '_blank');
+}
+</script>
+
+
+</body></html>
