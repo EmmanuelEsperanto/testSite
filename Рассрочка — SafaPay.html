@@ -422,7 +422,7 @@ function calculateMarkupByRatio(basePrice, initialPayment, baseMarkupPercent = 0
     let newTotal = 200 + basePrice * (1 + adjustedMarkupPercent);
     const newRemaining = newTotal - initialPayment;
     let RoundedMounthly = customRound((Math.round(newRemaining) / months))
-    let recalculatedTotal = RoundedMounthly + newRemaining * (1 + adjustedMarkupPercent);
+    let recalculatedTotal = RoundedMounthly * months + initialPayment;
     document.getElementById('total').innerText = recalculatedTotal.toLocaleString('ru-RU').split(',')[0];
     document.getElementById('monthly').innerText = RoundedMounthly.toLocaleString('ru-RU').split(',')[0];
     
