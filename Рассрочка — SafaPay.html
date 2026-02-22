@@ -470,7 +470,7 @@ function calculate() {
   ]);
 
 
-  const amount = +amountInput.value.replace(/\s/g, "") || 0;
+  let amount = +amountInput.value.replace(/\s/g, "") || 0;
   const down = +downInput.value.replace(/\s/g, "") || 0;
   const months = parseInt(document.getElementById('months').value) || 0;
 
@@ -480,15 +480,11 @@ function calculate() {
   }
 
   let interestRate = 0;
-  if (down > 0) {
-    interestRate = downInterest.get(months) / 100;
-    calculateMarkupByRatio(amount, down, interestRate, 0.25, months);
-  } else {
-    interestRate = noDownInterest.get(months) / 100;
+   interestRate = noDownInterest.get(months) / 100;
     const base = amount - down;
     const markup = interestRate;
-    let totalCost = 200 + amount * (1 + markup);
-    const remainingAmount = totalCost - down;
+    let totalCost = 200 + base * (1 + markup);
+    const remainingAmount = totalCost;
     const monthlyPayment = remainingAmount / months;
     const interestCount = (amount * markup) / months;
     const interestPerMonth = (interestCount / amount) * 100;
@@ -496,7 +492,7 @@ function calculate() {
 
     document.getElementById('total').innerText = RoundedMounthly*months.toLocaleString('ru-RU').split(',')[0];
     document.getElementById('monthly').innerText = RoundedMounthly.toLocaleString('ru-RU').split(',')[0];
-  }
+  
 }
 
 function submitToWhatsApp() {
